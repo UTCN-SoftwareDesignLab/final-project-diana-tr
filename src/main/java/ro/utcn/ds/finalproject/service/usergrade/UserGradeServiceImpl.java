@@ -23,13 +23,14 @@ public class UserGradeServiceImpl implements UserGradeService {
     }
 
     @Override
-    public List<UserGrade> getAllByUserId(Long id) {
-        return userGradeRepository.getAllByUser_id(id);
+    public List<UserGrade> getAllByStudentId(Long id) {
+        return userGradeRepository.getAllByStudent_id(id);
     }
+
 
     @Override
     public List<UserGrade> getAllBySubjectId(Long id) {
-        return userGradeRepository.getAllBySubjectId(id);
+        return userGradeRepository.getAllBySubject_id(id);
     }
 
     @Override
@@ -52,9 +53,9 @@ public class UserGradeServiceImpl implements UserGradeService {
     public void update(UserGrade userGrade) {
         UserGrade newUserGrade = userGradeRepository.getOne(userGrade.getId());
         newUserGrade.setGrade(userGrade.getGrade());
-        newUserGrade.setSubject(userGrade.getSubject());
         newUserGrade.setSubjectDetail(userGrade.getSubjectDetail());
-        newUserGrade.setUser(userGrade.getUser());
+        newUserGrade.setStudent(userGrade.getStudent());
+        newUserGrade.setSubject(userGrade.getSubject());
 
         userGradeRepository.save(newUserGrade);
     }

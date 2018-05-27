@@ -7,8 +7,9 @@ import ro.utcn.ds.finalproject.model.UserGrade;
 import java.util.List;
 
 @Repository
-public interface UserGradeRepository extends JpaRepository<UserGrade,Long>{
-    List<UserGrade> getAllByUser_id(Long id);
+public interface UserGradeRepository extends JpaRepository<UserGrade, Long> {
+    List<UserGrade> getAllByStudent_id(Long id);
 
-    List<UserGrade> getAllBySubjectId(Long id);
+    List<UserGrade> getAllBySubject_id(Long id);
+
 }

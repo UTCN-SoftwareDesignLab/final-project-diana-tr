@@ -14,11 +14,11 @@ public class UserGrade {
     private int grade;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+    private Student student;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "subjectid", referencedColumnName = "subjectid")
+    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
     private Subject subject;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -28,11 +28,19 @@ public class UserGrade {
     public UserGrade() {
     }
 
-    public UserGrade(int grade, User user, Subject subject, SubjectDetail subjectDetail) {
+    public UserGrade(int grade, Student student, Subject subject, SubjectDetail subjectDetail) {
         this.grade = grade;
-        this.user = user;
+        this.student = student;
         this.subject = subject;
         this.subjectDetail = subjectDetail;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public Long getId() {
@@ -51,27 +59,19 @@ public class UserGrade {
         this.grade = grade;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
     public SubjectDetail getSubjectDetail() {
         return subjectDetail;
     }
 
     public void setSubjectDetail(SubjectDetail subjectDetail) {
         this.subjectDetail = subjectDetail;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

@@ -6,9 +6,9 @@ public class UserGradeDto {
 
     private int grade;
 
-    private Long user_id;
+    private Long student_id;
 
-    private Long idsubject;
+    private Long subject_id;
 
     private Long subjectdetailid;
 
@@ -28,27 +28,27 @@ public class UserGradeDto {
         this.grade = grade;
     }
 
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    public Long getIdsubject() {
-        return idsubject;
-    }
-
-    public void setIdsubject(Long idsubject) {
-        this.idsubject = idsubject;
-    }
-
     public Long getSubjectdetailid() {
         return subjectdetailid;
     }
 
     public void setSubjectdetailid(Long subjectdetailid) {
         this.subjectdetailid = subjectdetailid;
+    }
+
+    public Long getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(Long student_id) {
+        this.student_id = student_id;
+    }
+
+    public Long getSubject_id() {
+        return subject_id;
+    }
+
+    public void setSubject_id(Long subject_id) {
+        this.subject_id = subject_id;
     }
 }

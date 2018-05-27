@@ -9,7 +9,7 @@ public interface UserGradeService {
 
     List<UserGrade> getAll();
 
-    List<UserGrade> getAllByUserId(Long id);
+    List<UserGrade> getAllByStudentId(Long id);
 
     List<UserGrade> getAllBySubjectId(Long id);
 

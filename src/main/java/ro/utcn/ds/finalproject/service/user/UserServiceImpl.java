@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(UserDto userDto) {
         Role role = roleRepository.findByRole("ROLE_USER");
-        User user = new User(userDto.getUsername(), bCryptPasswordEncoder.encode(userDto.getPassword()), true,userDto.getEmail(),userDto.getFirstName(),userDto.getLastName(), new HashSet<>(Arrays.asList(role)));
+        User user = new User(userDto.getUsername(), bCryptPasswordEncoder.encode(userDto.getPassword()), true, new HashSet<>(Arrays.asList(role)));
         return userRepository.save(user);
     }
 

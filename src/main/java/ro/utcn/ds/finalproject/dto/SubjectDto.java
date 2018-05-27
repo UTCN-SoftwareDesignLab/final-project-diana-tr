@@ -21,4 +21,5 @@ public class SubjectDto {
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
+
 }

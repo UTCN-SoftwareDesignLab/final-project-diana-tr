@@ -12,9 +12,9 @@ public class UserGradeToUserGradeDtoConverter implements SuperConverter<UserGrad
         final UserGradeDto userGradeDto = new UserGradeDto();
         userGradeDto.setId(userGrade.getId());
         userGradeDto.setGrade(userGrade.getGrade());
-        userGradeDto.setIdsubject(userGrade.getSubject().getId());
         userGradeDto.setSubjectdetailid(userGrade.getSubjectDetail().getId());
-        userGradeDto.setUser_id(userGrade.getUser().getId());
+        userGradeDto.setStudent_id(userGrade.getStudent().getId());
+        userGradeDto.setSubject_id(userGrade.getSubject().getId());
         return userGradeDto;
     }
 }

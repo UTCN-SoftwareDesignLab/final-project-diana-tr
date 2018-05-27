@@ -13,9 +13,6 @@ public class UserDtoToUserConverter implements SuperConverter<UserDto, User> {
         user.setPassword(input.getPassword());
         user.setUsername(input.getUsername());
         user.setEnabled(input.isEnabled());
-        user.setEmail(input.getEmail());
-        user.setFirstName(input.getFirstName());
-        user.setLastName(input.getLastName());
         return user;
     }
 }

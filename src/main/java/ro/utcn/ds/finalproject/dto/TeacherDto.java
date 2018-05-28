@@ -1,38 +1,16 @@
-package ro.utcn.ds.finalproject.model;
+package ro.utcn.ds.finalproject.dto;
 
-import javax.persistence.*;
-import java.util.Set;
+public class TeacherDto {
 
-@Entity
-@Table(name = "teacher")
-public class Teacher {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "teacher_id")
     private Long id;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "email")
     private String email;
-
-    public Teacher() {
-    }
-
-    public Teacher(String username, String firstName, String lastName, String email) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 
     public Long getId() {
         return id;
@@ -73,4 +51,5 @@ public class Teacher {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

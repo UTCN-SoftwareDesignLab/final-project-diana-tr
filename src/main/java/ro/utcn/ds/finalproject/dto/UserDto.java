@@ -1,10 +1,5 @@
 package ro.utcn.ds.finalproject.dto;
 
-
-import ro.utcn.ds.finalproject.model.Role;
-
-import java.util.Set;
-
 public class UserDto {
 
     private Long id;
@@ -13,10 +8,9 @@ public class UserDto {
 
     private String password;
 
+    private String role;
+
     private boolean enabled;
-
-    private Set<Role> roles;
-
 
     public Long getId() {
         return id;
@@ -50,5 +44,11 @@ public class UserDto {
         this.enabled = enabled;
     }
 
+    public String getRole() {
+        return role;
+    }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

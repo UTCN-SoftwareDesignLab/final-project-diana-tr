@@ -29,9 +29,25 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
+    public Subject findByTeacherId(Long id) {
+        return subjectRepository.findByTeacher_id(id);
+    }
+
+    @Override
+    public Subject findByName(String name) {
+        return subjectRepository.findBySubjectName(name);
+    }
+
+    @Override
     public Subject create(SubjectDto subjectDto) {
         Subject subject = converter.apply(subjectDto);
         return subjectRepository.save(subject);
+    }
+
+    @Override
+    public void addStudentToSubject(Long studentId, Subject subject) {
+        Long subjectId = subject.getId();
+        subjectRepository.addStudentToSubject(studentId, subjectId);
     }
 
     @Override

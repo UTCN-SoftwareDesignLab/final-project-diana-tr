@@ -10,7 +10,13 @@ public interface SubjectService {
 
     Subject findById(Long id);
 
+    Subject findByTeacherId(Long id);
+
+    Subject findByName(String name);
+
     Subject create(SubjectDto subjectDto);
+
+    void addStudentToSubject(Long studentId, Subject subject);
 
     void delete(Long id);
 

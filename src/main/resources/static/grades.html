@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Grading Application</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="resources/css/table.css" th:href="@{/css/table.css}"/>
+</head>
+<body>
+<h2>List of Grades</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Student Name</th>
+        <th>Teacher Name</th>
+        <th>Subject Name</th>
+        <th>Year</th>
+        <th>Semester</th>
+        <th>Grade</th>
+    </tr>
+    <tr th:each="grade: ${grades}">
+        <td th:text="${grade.id}"></td>
+        <td th:text="${grade.student.firstName}+ ' ' + ${grade.student.lastName}"></td>
+        <td th:text="${grade.subject.teacher.firstName}+ ' ' + ${grade.subject.teacher.lastName}"></td>
+        <td th:text="${grade.subject.subjectName}"></td>
+        <td th:text="${grade.subjectDetail.year}"></td>
+        <td th:text="${grade.subjectDetail.semester}"></td>
+        <td th:text="${grade.grade}"></td>
+
+    </tr>
+</table>
+<p><a th:href="@{/grades/create}">Register a new grade</a></p>
+<p><a th:href="@{/admin}">Back</a></p>
+</body>
+</html>

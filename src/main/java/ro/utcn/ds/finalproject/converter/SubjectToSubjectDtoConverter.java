@@ -11,6 +11,13 @@ public class SubjectToSubjectDtoConverter implements SuperConverter<Subject, Sub
         final SubjectDto subjectDto = new SubjectDto();
         subjectDto.setId(subject.getId());
         subjectDto.setSubjectName(subject.getSubjectName());
+        subjectDto.setTeacher_id(subject.getTeacher().getId());
+        subjectDto.setStudents(subject.getStudents());
+//        List<Long> ids = new ArrayList<>();
+//        for (Teacher teacher : subject.getTeachers()) {
+//            ids.add(teacher.getId());
+//        }
+//        subjectDto.setTeacher_id(ids);
         return subjectDto;
     }
 }

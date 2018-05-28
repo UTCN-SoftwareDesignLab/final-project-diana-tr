@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserDto userDto) {
-        Role role = roleRepository.findByRole("ROLE_USER");
+        Role role = roleRepository.findByRole(userDto.getRole());
         User user = new User(userDto.getUsername(), bCryptPasswordEncoder.encode(userDto.getPassword()), true, new HashSet<>(Arrays.asList(role)));
         return userRepository.save(user);
     }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         User newUser = userRepository.getOne(user.getId());
         newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
-        newUser.setEnabled(user.isEnabled());
+        newUser.setEnabled(true);
 
         userRepository.save(newUser);
     }

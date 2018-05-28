@@ -51,4 +51,15 @@ public class UserGradeDto {
     public void setSubject_id(Long subject_id) {
         this.subject_id = subject_id;
     }
+
+    @Override
+    public String toString() {
+        return "UserGradeDto{" +
+                "id=" + id +
+                ", grade=" + grade +
+                ", student_id=" + student_id +
+                ", subject_id=" + subject_id +
+                ", subjectdetailid=" + subjectdetailid +
+                '}';
+    }
 }

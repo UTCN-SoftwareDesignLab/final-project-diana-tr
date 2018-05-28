@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Grading Application</title>
+</head>
+<body>
+<h1>Add a new student</h1>
+<form th:action="@{/students/create}" th:object="${student}" method="post">
+    <p> Username: <input type="text" name="username" th:field="${student.username}"/></p>
+    <p> First Name: <input type="text" name="firstName" th:field="${student.firstName}"/></p>
+    <p> Last Name: <input type="text" name="lastName" th:field="${student.lastName}"/></p>
+    <p> Email: <input type="text" name="email" th:field="${student.email}"/></p>
+    <button>Create</button>
+</form>
+
+<div th:if="${param.success}">
+    Student created successfully!
+</div>
+<a th:href="@{/students}">List of students</a>
+</body>
+</html>

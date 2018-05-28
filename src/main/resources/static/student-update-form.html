@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Grading Application</title>
+</head>
+<body>
+<h1>Edit an existing student</h1>
+<form th:action="@{/students/update}" th:object="${studentDto}" method="post">
+    <p>Id: <input type="text" th:readonly="true" th:field="${studentDto.id}"/></p>
+    <p>Username: <input type="text" th:field="${studentDto.username}"/></p>
+    <p>First Name: <input type="text" th:field="${studentDto.firstName}"/></p>
+    <p>Last Name: <input type="text" th:field="${studentDto.lastName}"/></p>
+    <p>Email: <input type="text" th:field="${studentDto.email}"/></p>
+    <p>Subjects: <input th:each="subject: ${subjects}" th:readonly="true" th:value="${subject.subjectName}"/></p>
+    <p>Enter new course:
+        <input type="text" name="course">
+    </p>
+    <p>
+        <button>Save</button>
+    </p>
+</form>
+
+<div th:if="${param.success}">
+    Student successfully updated!
+</div>
+
+<a th:href="@{/students}">List of students</a>
+
+</body>
+</html>

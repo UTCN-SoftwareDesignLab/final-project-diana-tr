@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Grading Application</title>
+</head>
+<body>
+<h1>Add a new grade</h1>
+<form th:action="@{/grades/create}" th:object="${grade}" method="post">
+    <p>Student Name: <select name="student_id" id="studentId" th:field="${grade.student_id}">
+        <option th:each="student: ${students}" th:value="${student.id}" th:id="studentId"
+                th:text="${student.firstName} + ' ' +${student.lastName}">
+        </option>
+    </select></p>
+    <p>Subject Name: <select name="subject_id" id="subjectId" th:field="${grade.subject_id}">
+        <option th:each="subject: ${subjects}" th:value="${subject.id}" th:id="subjectId"
+                th:text="${subject.subjectName}">
+        </option>
+    </select></p>
+    <p>Details: <select name="subjectdetailid" id="subjectdetailid" th:field="${grade.subjectdetailid}">
+        <option th:each="detail: ${details}" th:value="${detail.id}" th:id="subjectdetailid"
+                th:text="'Year:' + ${detail.year} + ' Semester: ' +${detail.semester}">
+        </option>
+    </select></p>
+    <p>Grade: <input type="number" id="grade" th:field="${grade.grade}"/></p>
+    <button>Create</button>
+</form>
+
+<div th:if="${param.success}">
+    Grade created successfully!
+</div>
+<a th:href="@{/grades}">List of grades</a>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Grading Application</title>
+</head>
+<body>
+<h1>Add a new Subject</h1>
+<form th:action="@{/subjects/create}" th:object="${subject}" method="post">
+    <p>Name: <input type="text" id="subjectName" th:field="${subject.subjectName}"/></p>
+    <p>Teacher Name: <select name="teacher_id" id="teacherId" th:field="${subject.teacher_id}">
+        <option th:each="teacher: ${teachers}" th:value="${teacher.id}" th:id="teacherId" th:text="${teacher.username}">
+        </option>
+    </select></p>
+    <p>
+        <button type="submit">Save</button>
+    </p>
+</form>
+
+
+<div th:if="${param.success}">
+    Subject created successfully!
+</div>
+
+<a th:href="@{/subjects}">List of subjects</a>
+</body>
+</html>

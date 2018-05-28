@@ -1,7 +1,7 @@
 package ro.utcn.ds.finalproject.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "subject")
@@ -15,16 +15,21 @@ public class Subject {
     @Column(name = "subjectname")
     private String subjectName;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
+    private Teacher teacher;
+
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "subject_teacher", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "teacher_id"))
-    private Set<Teacher> teachers;
+    @JoinTable(name = "student_subject", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     public Subject() {
     }
 
-    public Subject(String subjectName, Set<Teacher> teachers) {
+    public Subject(String subjectName, Teacher teacher, List<Student> students) {
         this.subjectName = subjectName;
-        this.teachers = teachers;
+        this.teacher = teacher;
+        this.students = students;
     }
 
     public Long getId() {
@@ -43,12 +48,19 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-
-    public Set<Teacher> getTeachers() {
-        return teachers;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeachers(Set<Teacher> teachers) {
-        this.teachers = teachers;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

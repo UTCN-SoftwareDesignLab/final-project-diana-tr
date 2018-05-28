@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Grading Application</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="resources/css/table.css" th:href="@{/css/table.css}"/>
+</head>
+<body>
+<h2>List of Subjects</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Teacher Name</th>
+    </tr>
+    <tr th:each="subject: ${subjects}">
+        <td th:text="${subject.id}"></td>
+        <td th:text="${subject.subjectName}"></td>
+        <td th:text="${subject.teacher.username}"></td>
+        <td><a th:href="@{/subjects/edit/(id=${subject.id})}">Edit</a></td>
+    </tr>
+</table>
+
+<h2>Enter the id of the subject you want to delete:</h2>
+<p>
+<form th:action="@{/subjects/delete}" method="get">
+    <input type="text" name="id" th:value="*{id}">
+    <button type="submit">Delete</button>
+    <div th:if="${param.success}">
+        Subject successfully deleted!
+    </div>
+</form>
+</p>
+
+<p><a th:href="@{/subjects/create}">Create a new subject</a></p>
+<p><a th:href="@{/admin}">Back</a></p>
+</body>
+</html>

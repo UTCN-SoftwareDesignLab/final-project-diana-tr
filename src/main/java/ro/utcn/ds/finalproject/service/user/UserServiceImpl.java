@@ -60,9 +60,8 @@ public class UserServiceImpl implements UserService {
 
         User newUser = userRepository.getOne(user.getId());
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
+        newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         newUser.setEnabled(true);
-
         userRepository.save(newUser);
     }
 

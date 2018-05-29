@@ -3,6 +3,7 @@ package ro.utcn.ds.finalproject.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import ro.utcn.ds.finalproject.converter.StudentToStudentDtoConverter;
 import ro.utcn.ds.finalproject.dto.StudentDto;
 import ro.utcn.ds.finalproject.model.Student;
 import ro.utcn.ds.finalproject.model.Subject;
+import ro.utcn.ds.finalproject.model.validation.Notification;
 import ro.utcn.ds.finalproject.service.student.StudentService;
 import ro.utcn.ds.finalproject.service.subject.SubjectService;
 
@@ -35,22 +37,31 @@ public class StudentCRUDController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute @Valid StudentDto studentDto) {
+    public String create(@ModelAttribute @Valid StudentDto studentDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "student-create-form";
+        }
         studentService.create(studentDto);
         return "redirect:create?success";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String showCreateForm(Model model) {
-        model.addAttribute("student", new StudentDto());
+        model.addAttribute("studentDto", new StudentDto());
         return "student-create-form";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(name = "id") String id, Model model) {
-        studentService.delete(Long.parseLong(id));
-        model.addAttribute("deleteMessage", "Student was successfully deleted");
-        return "redirect:/students";
+        Notification<Boolean> deleteNotification = studentService.delete(Long.parseLong(id));
+        if (deleteNotification.hasErrors()) {
+            model.addAttribute("message", deleteNotification.getFormattedErrors());
+            model.addAttribute("students", studentService.getAll());
+            return "students";
+        } else {
+            model.addAttribute("message", "Student was successfully deleted!");
+            return "redirect:/students";
+        }
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)

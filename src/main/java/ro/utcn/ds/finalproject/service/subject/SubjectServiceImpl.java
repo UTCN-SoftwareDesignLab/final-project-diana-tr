@@ -59,7 +59,31 @@ public class SubjectServiceImpl implements SubjectService {
     public void update(Subject subject) {
         Subject newSubject = subjectRepository.getOne(subject.getId());
         newSubject.setSubjectName(subject.getSubjectName());
-
+        newSubject.setStudents(subject.getStudents());
+        newSubject.setTeacher(subject.getTeacher());
         subjectRepository.save(newSubject);
+    }
+
+    @Override
+    public Boolean existsByTeacherId(Long id) {
+        if (subjectRepository.existsByTeacherId(id) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public Boolean existsByStudentId(Long id) {
+        if (subjectRepository.existsByStudentId(id) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public Boolean exists(Long id) {
+        return subjectRepository.existsById(id);
     }
 }

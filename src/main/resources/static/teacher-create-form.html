@@ -6,11 +6,15 @@
 </head>
 <body>
 <h1>Add a new teacher</h1>
-<form th:action="@{/teachers/create}" th:object="${teacher}" method="post">
-    <p> Username: <input type="text" name="username" th:field="${teacher.username}"/></p>
-    <p> First Name: <input type="text" name="firstName" th:field="${teacher.firstName}"/></p>
-    <p> Last Name: <input type="text" name="lastName" th:field="${teacher.lastName}"/></p>
-    <p> Email: <input type="text" name="email" th:field="${teacher.email}"/></p>
+<form th:action="@{/teachers/create}" th:object="${teacherDto}" method="post">
+    <p> Username: <input type="text" name="username" th:field="${teacherDto.username}"/></p>
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+    <p> First Name: <input type="text" name="firstName" th:field="${teacherDto.firstName}"/></p>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+    <p> Last Name: <input type="text" name="lastName" th:field="${teacherDto.lastName}"/></p>
+    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"/>
+    <p> Email: <input type="text" name="email" th:field="${teacherDto.email}"/></p>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
     <button>Create</button>
 </form>
 

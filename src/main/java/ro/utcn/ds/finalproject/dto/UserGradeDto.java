@@ -1,9 +1,15 @@
 package ro.utcn.ds.finalproject.dto;
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotNull;
+
 public class UserGradeDto {
 
     private Long id;
 
+    @NotNull(message = "Grade is required")
+    @Range(min = 1, max = 10, message = "Grade must be between 1 and 10")
     private int grade;
 
     private Long student_id;

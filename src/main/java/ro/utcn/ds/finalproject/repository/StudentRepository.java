@@ -15,4 +15,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Modifying
     @Query(value = "INSERT INTO student_subject(student_id,subject_id) VALUES (?1,?2)", nativeQuery = true)
     void addSubjectToStudent(Long studentId, Long subjectId);
+
+    @Query(value = "SELECT COUNT(s.subject_id) FROM student_subject s WHERE s.student_id=?1", nativeQuery = true)
+    Long existsBySubjectId(Long id);
+
+    @Query(value = "SELECT COUNT(s.subject_id) FROM student_subject s WHERE s.student_id=?1 AND s.subject_id=?2", nativeQuery = true)
+    Long existsBySubjectAndStudent(Long student_id, Long subject_id);
 }

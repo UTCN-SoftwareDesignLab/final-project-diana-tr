@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ro.utcn.ds.finalproject.dto.UserGradeDto;
 import ro.utcn.ds.finalproject.model.Subject;
 import ro.utcn.ds.finalproject.model.Teacher;
@@ -63,4 +64,35 @@ public class TeacherController {
         userGradeService.create(userGradeDto);
         return "redirect:create?success";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(name = "id") String id, Model model) {
+        String message = null;
+        boolean error = true;
+        if (id.isEmpty()) {
+            message = "Please enter the id";
+        } else if (Long.parseLong(id) < 0) {
+            message = "Please enter a positive value";
+        } else if (!userGradeService.existsById(Long.parseLong(id))) {
+            message = "The grade with the specified id doesn't exist";
+        } else {
+            error = false;
+        }
+
+        if (error) {
+            model.addAttribute("message", message);
+        } else {
+            userGradeService.delete(Long.parseLong(id));
+            model.addAttribute("message", "Grade was successfully deleted");
+        }
+        User user1 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = user1.getUsername();
+        Teacher teacher = teacherService.findByUsername(username);
+        Subject subject = subjectService.findByTeacherId(teacher.getId());
+        model.addAttribute("grades", userGradeService.getAllBySubjectId(subject.getId()));
+        return "teacher";
+    }
+
 }
+
+

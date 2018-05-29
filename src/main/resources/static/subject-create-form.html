@@ -7,9 +7,11 @@
 </head>
 <body>
 <h1>Add a new Subject</h1>
-<form th:action="@{/subjects/create}" th:object="${subject}" method="post">
-    <p>Name: <input type="text" id="subjectName" th:field="${subject.subjectName}"/></p>
-    <p>Teacher Name: <select name="teacher_id" id="teacherId" th:field="${subject.teacher_id}">
+<h5 style="color:#FF0000" th:text="${message}"></h5>
+<form th:action="@{/subjects/create}" th:object="${subjectDto}" method="post">
+    <p>Name: <input type="text" id="subjectName" th:field="${subjectDto.subjectName}"/></p>
+    <div th:if="${#fields.hasErrors('subjectName')}" th:errors="*{subjectName}"/>
+    <p>Teacher Name: <select name="teacher_id" id="teacherId" th:field="${subjectDto.teacher_id}">
         <option th:each="teacher: ${teachers}" th:value="${teacher.id}" th:id="teacherId" th:text="${teacher.username}">
         </option>
     </select></p>

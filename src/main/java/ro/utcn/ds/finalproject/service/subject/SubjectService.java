@@ -21,4 +21,10 @@ public interface SubjectService {
     void delete(Long id);
 
     void update(Subject subject);
+
+    Boolean existsByTeacherId(Long id);
+
+    Boolean existsByStudentId(Long id);
+
+    Boolean exists(Long id);
 }

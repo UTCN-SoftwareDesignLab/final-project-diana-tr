@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title><!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Grading Application</title>
+    </head>
+<body>
+<h1>Edit user</h1>
+
+<h4> Login information</h4>
+<form th:action="@{/student/updateUser}" th:object="${userDto}" method="post">
+    <p>Id: <input type="text" th:readonly="true" th:field="${userDto.id}"/></p>
+    <p>Username: <input type="text" th:field="${userDto.username}"/></p>
+    <p>Password: <input type="password" th:field="${userDto.password}"/></p>
+    <p>
+        <button>Save</button>
+    </p>
+</form>
+
+<div th:if="${param.success}">
+    Information successfully updated!
+</div>
+
+<a th:href="@{/student}">Back</a>
+
+</body>
+</html>
+</head>
+<body>
+
+</body>
+</html>

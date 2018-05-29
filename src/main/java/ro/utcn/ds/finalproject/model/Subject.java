@@ -63,4 +63,14 @@ public class Subject {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", subjectName='" + subjectName + '\'' +
+                ", teacher=" + teacher +
+                ", students=" + students +
+                '}';
+    }
 }

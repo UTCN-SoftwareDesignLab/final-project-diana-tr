@@ -8,10 +8,15 @@
 <body>
 
 <h1>Edit an existing subject</h1>
+<h5 style="color:#FF0000" th:text="${message}"></h5>
 <form th:action="@{/subjects/update}" th:object="${subjectDto}" method="post">
     <p>Id: <input type="text" th:readonly="true" th:field="${subjectDto.id}"/></p>
     <p>Name: <input type="text" th:field="${subjectDto.subjectName}"/></p>
-    <p>Teacher Name: <input type="text" th:field="*{teachers[0].username}"></p>
+    <div th:if="${#fields.hasErrors('subjectName')}" th:errors="*{subjectName}"/>
+    <p>Teacher Name: <select name="teacher_id" id="teacherId" th:field="${subjectDto.teacher_id}">
+        <option th:each="teacher: ${teachers}" th:value="${teacher.id}" th:id="teacherId" th:text="${teacher.username}">
+        </option>
+    </select></p>
     <p>
     <p>
         <button>Save</button>

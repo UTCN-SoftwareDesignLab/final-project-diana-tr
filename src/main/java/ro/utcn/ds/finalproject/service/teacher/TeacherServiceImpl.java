@@ -52,4 +52,13 @@ public class TeacherServiceImpl implements TeacherService {
         newTeacher.setLastName(teacher.getLastName());
         teacherRepository.save(newTeacher);
     }
+
+    @Override
+    public boolean teacherExists(Long id) {
+        if (teacherRepository.existsById(id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

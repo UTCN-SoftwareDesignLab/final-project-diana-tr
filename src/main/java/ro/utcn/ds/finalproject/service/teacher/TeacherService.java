@@ -17,4 +17,6 @@ public interface TeacherService {
     void delete(Long id);
 
     void update(Teacher teacher);
+
+    boolean teacherExists(Long id);
 }

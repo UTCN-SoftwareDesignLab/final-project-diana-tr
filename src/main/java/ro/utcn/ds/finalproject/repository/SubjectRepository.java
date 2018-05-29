@@ -22,4 +22,11 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     @Query(value = "INSERT INTO student_subject(student_id,subject_id) VALUES (?1,?2)", nativeQuery = true)
     void addStudentToSubject(Long studentId, Long subjectId);
 
+    @Query(value = "SELECT COUNT(s.subject_id) FROM subject s WHERE s.teacher_id=?1", nativeQuery = true)
+    Long existsByTeacherId(Long id);
+
+    @Query(value = "SELECT COUNT(s.student_id) FROM student_subject s WHERE s.subject_id=?1", nativeQuery = true)
+    Long existsByStudentId(Long id);
+
+
 }

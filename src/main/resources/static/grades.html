@@ -27,10 +27,22 @@
         <td th:text="${grade.subjectDetail.year}"></td>
         <td th:text="${grade.subjectDetail.semester}"></td>
         <td th:text="${grade.grade}"></td>
-
+        <td><a th:href="@{/grades/edit/(id=${grade.id})}">Edit</a></td>
     </tr>
 </table>
 <p><a th:href="@{/grades/create}">Register a new grade</a></p>
+
+<h2>Enter the id of the subject you want to delete:</h2>
+<h5 style="color:#FF0000" th:text="${message}"></h5>
+<p>
+<form th:action="@{/grades/delete}" method="get">
+    <input type="text" name="id" th:value="*{id}">
+    <button type="submit">Delete</button>
+    <div th:if="${param.success}">
+        Grade successfully deleted!
+    </div>
+</form>
+</p>
 <p><a th:href="@{/admin}">Back</a></p>
 </body>
 </html>

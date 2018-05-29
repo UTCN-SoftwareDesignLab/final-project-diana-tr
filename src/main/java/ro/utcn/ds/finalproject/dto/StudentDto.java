@@ -2,18 +2,29 @@ package ro.utcn.ds.finalproject.dto;
 
 import ro.utcn.ds.finalproject.model.Subject;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class StudentDto {
 
     private Long id;
 
+    @NotNull(message = "Username is required")
+    @Size(min = 5, max = 30, message = "Username must be between 5 and 30 characters")
     private String username;
 
+    @NotNull(message = "First name is required")
+    @Size(min = 5, max = 30, message = "First name must be between 5 and 30 characters")
     private String firstName;
 
+    @NotNull(message = "Last name is required")
+    @Size(min = 5, max = 30, message = "Last name must be between 5 and 30 characters")
     private String lastName;
 
+    @NotNull(message = "Email is required")
+    @Email(message = "Email should be valid")
     private String email;
 
     private List<Subject> subjects;

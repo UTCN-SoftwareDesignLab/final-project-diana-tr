@@ -26,12 +26,13 @@
 </table>
 
 <h3>Enter the id of the teacher you want to delete:</h3>
+<h5 style="color:#FF0000" th:text="${message}"></h5>
 <p>
 <form th:action="@{/teachers/delete}" method="get">
     <input type="text" name="id" th:value="*{id}">
     <button type="submit">Delete</button>
     <div th:if="${param.success}">
-        Student successfully deleted!
+        Teacher successfully deleted!
     </div>
 </form>
 </p>

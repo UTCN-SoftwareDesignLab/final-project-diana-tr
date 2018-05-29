@@ -33,49 +33,46 @@ public class StudentController {
     @Autowired
     private UserGradeService userGradeService;
 
+    @Autowired
+    private StudentDtoToStudentConverter studentDtoToStudentConverter;
+
+    @Autowired
+    private StudentToStudentDtoConverter studentToStudentDtoConverter;
+
+    @Autowired
+    private UserDtoToUserConverter userDtoToUserConverter;
+
+    @Autowired
+    private UserToUserDtoConverter userToUserDtoConverter;
+
     @RequestMapping(method = RequestMethod.GET)
     public String student() {
         return "student";
     }
 
+    @RequestMapping(value = "/updateStudent", method = RequestMethod.GET)
+    public String showUpdateFormStudent(Model model) {
+        model.addAttribute("student", new Student());
+        return "student-edit-info";
+    }
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/editStudent", method = RequestMethod.GET)
     public ModelAndView editStudent() {
         ModelAndView modelAndView = new ModelAndView("student-edit-info");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = user.getUsername();
         System.out.println(username);
         Student student = studentService.findByUsername(username);
-        ro.utcn.ds.finalproject.model.User user1 = userService.findByUsername(username);
-        UserDto userDto = new UserToUserDtoConverter().apply(user1);
-        StudentDto studentDto = new StudentToStudentDtoConverter().apply(student);
+        StudentDto studentDto = studentToStudentDtoConverter.apply(student);
         modelAndView.addObject("studentDto", studentDto);
-        modelAndView.addObject("userDto", userDto);
         return modelAndView;
     }
 
     @RequestMapping(value = "/updateStudent", method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute StudentDto studentDto) {
+    public ModelAndView updateStudent(@ModelAttribute StudentDto studentDto) {
         ModelAndView modelAndView = new ModelAndView("redirect:/student");
-        Student student = new StudentDtoToStudentConverter().apply(studentDto);
+        Student student = studentDtoToStudentConverter.apply(studentDto);
         studentService.update(student);
-        modelAndView.addObject("message", "Success");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute UserDto userDto) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/student");
-        User user1 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = user1.getUsername();
-        String usernameDto = userDto.getUsername();
-        System.out.println("UsernameDto" + usernameDto);
-        ro.utcn.ds.finalproject.model.User user = new UserDtoToUserConverter().apply(userDto);
-        System.out.println("User id " + user.getId());
-        Student student = studentService.findByUsername(username);
-        student.setUsername(usernameDto);
-        studentService.update(student);
-        userService.update(user);
         modelAndView.addObject("message", "Success");
         return modelAndView;
     }
@@ -87,5 +84,38 @@ public class StudentController {
         Student student = studentService.findByUsername(username);
         model.addAttribute("grades", userGradeService.getAllByStudentId(student.getId()));
         return "student-grades";
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+    public String showUpdateFormUser(Model model) {
+        model.addAttribute("user", new ro.utcn.ds.finalproject.model.User());
+        return "student-edit-form";
+    }
+
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+    public ModelAndView editUser() {
+        ModelAndView modelAndView = new ModelAndView("student-edit-form");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = user.getUsername();
+        System.out.println(username);
+        ro.utcn.ds.finalproject.model.User user1 = userService.findByUsername(username);
+        System.out.println(user1.toString());
+        UserDto userDto = new UserToUserDtoConverter().apply(user1);
+        System.out.println(userDto.toString());
+        modelAndView.addObject("userDto", userDto);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public ModelAndView updateUser(@ModelAttribute UserDto userDto) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/login");
+        ro.utcn.ds.finalproject.model.User user = new UserDtoToUserConverter().apply(userDto);
+        User user1 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = user1.getUsername();
+        Student student = studentService.findByUsername(username);
+        studentService.update(student);
+        userService.update(user);
+        modelAndView.addObject("message", "Success");
+        return modelAndView;
     }
 }

@@ -20,4 +20,6 @@ public interface UserGradeService {
     void delete(Long id);
 
     void update(UserGrade userGrade);
+
+    boolean existsById(Long id);
 }
